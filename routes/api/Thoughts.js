@@ -30,5 +30,22 @@ router.post('/:userId', async (req, res) => {
         })
 })
 
+router.put('/:userId/:thoughtId', async (req, res) => {
+    const { thoughtText } = req.body
+    const user = await User.findById(req.params.userId)
+    const updateThought = await Thoughts.where("_id").equals(req.params.thoughtId).updateOne({
+        username: user.username,
+        thoughtText: thoughtText,
+    })
+    user.thoughts.push(updateThought._id)
+    await user.save()
+        .then((result) => {
+            return res.json(result)
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+})
+
 
 module.exports = router

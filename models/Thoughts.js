@@ -11,7 +11,7 @@ const reactionSchema = new mongoose.Schema({
         maxLength: 280
     },
     username: {
-        type: String,
+        type: [mongoose.SchemaTypes.String],
         required: true
     },
     createdAt: {
