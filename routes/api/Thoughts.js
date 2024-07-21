@@ -7,6 +7,11 @@ router.get('/', (req, res) => {
         .then((response) => res.json(response))
 })
 
+router.get('/:id', (req, res) => {
+    Thoughts.findById(req.params.id)
+        .then((response) => res.json(response))
+})
+
 
 router.post('/:userId', async (req, res) => {
     const { thoughtText } = req.body
