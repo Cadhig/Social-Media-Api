@@ -5,10 +5,12 @@ const User = require('../../models/User')
 router.post('/:userId', async (req, res) => {
     const { thoughtText } = req.body
     const user = await User.findById(req.params.userId)
-    Thoughts.create({
+    const newThought = await Thoughts.create({
         username: user.username,
         thoughtText: thoughtText,
     })
+    user.thoughts.push(newThought._id)
+    await user.save()
         .then((result) => {
             return res.json(result)
         })

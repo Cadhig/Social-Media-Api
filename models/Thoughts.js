@@ -35,6 +35,7 @@ const thoughtsSchema = new mongoose.Schema({
     },
     username: {
         type: [mongoose.SchemaTypes.String],
+        userId: [mongoose.SchemaTypes.ObjectId],
         ref: "User"
     },
     reactions: [reactionSchema]
