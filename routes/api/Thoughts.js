@@ -47,5 +47,19 @@ router.put('/:userId/:thoughtId', async (req, res) => {
         })
 })
 
+router.delete('/:userId/:thoughtId', async (req, res) => {
+    const user = await User.findById(req.params.userId)
+    const deleteThought = await Thoughts.where("_id").equals(req.params.thoughtId).deleteOne()
+    const deleteThoughtFromUser = user.thoughts.indexOf(deleteThought._id)
+    user.thoughts.splice(deleteThoughtFromUser)
+    await user.save()
+        .then((result) => {
+            return res.json(result)
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+})
+
 
 module.exports = router
