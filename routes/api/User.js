@@ -74,35 +74,25 @@ router.post('/:userId/following/:userTwoId', (req, res) => {
         })
 })
 
-router.delete('/:userId/following/:userToRemove', (req, res) => {
-    const { username, email, thoughts, following } = req.body
-    let followList
-    User.findById(req.params.userId)
-        .then((result) => {
-            followList = result.following
-        })
-        .catch((err) => {
-            console.error(err)
-        })
-    let userToUnfollow
-    for (let i = 0; i < followList.length; i++) {
-        if (req.params.userToRemove === followList[i]) {
-            userToUnfollow = i
-        }
-    }
-    User.where("_id").equals(req.params.userId).updateOne({
-        following: [userToUnfollow] = null
-    })
-
-    // User.where("_id").equals(req.params.userId).where("following").equals(req.params.userToRemove).updateOne({
-    //     following: 1
-    // })
-    //     .then((result) => {
-    //         return res.json(result)
-    //     })
-    //     .catch((err) => {
-    //         console.error(err)
-    //     })
-})
+// router.delete('/:userId/following/:userToRemove', (req, res) => {
+//     const { username, email, thoughts, following } = req.body
+//     let followList
+//     User.findById(req.params.userId)
+//         .then((result) => {
+//             followList = result.following
+//         })
+//         .catch((err) => {
+//             console.error(err)
+//         })
+//     // User.where("_id").equals(req.params.userId).where("following").equals(req.params.userToRemove).updateOne({
+//     //     following: 1
+//     // })
+//     //     .then((result) => {
+//     //         return res.json(result)
+//     //     })
+//     //     .catch((err) => {
+//     //         console.error(err)
+//     //     })
+// })
 
 module.exports = router
