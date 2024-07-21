@@ -2,6 +2,12 @@ const router = require('express').Router()
 const Thoughts = require('../../models/Thoughts')
 const User = require('../../models/User')
 
+router.get('/', (req, res) => {
+    Thoughts.find()
+        .then((response) => res.json(response))
+})
+
+
 router.post('/:userId', async (req, res) => {
     const { thoughtText } = req.body
     const user = await User.findById(req.params.userId)
@@ -18,5 +24,6 @@ router.post('/:userId', async (req, res) => {
             console.error(err)
         })
 })
+
 
 module.exports = router
