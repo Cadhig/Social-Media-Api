@@ -61,5 +61,4 @@ router.delete('/:userId/:thoughtId', async (req, res) => {
         })
 })
 
-
 module.exports = router
